@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 200 200%27%3E%3Ccircle cx=%27100%27 cy=%27100%27 r=%2797%27 fill=%27%23fff%27 stroke=%27%238a5a2e%27 stroke-width=%2710%27/%3E%3Cpath d=%27M60 150L100 112 140 150%27 fill=%27none%27 stroke=%27%232b1a10%27 stroke-width=%2714%27 stroke-linejoin=%27round%27/%3E%3Cpath d=%27M62 108a38 42 0 0 1 76 0%27 fill=%27none%27 stroke=%27%232b1a10%27 stroke-width=%278%27/%3E%3C/svg%3E"><meta name="description" content="LUTF NISAR MDF: MDF boards, cutting and planning for furniture, cabinets and interior projects. Use our MDF measurement calculator or contact us."><meta name="theme-color" content="#17463a"><meta property="og:title" content="LUTF NISAR MDF | Precision in Every Cut"><meta property="og:description" content="MDF boards, precise cutting and a free measurement calculator."><meta property="og:type" content="website"><title>LUTF NISAR MDF | Precision in Every Cut</title>
 <style>
 :root{--green:#17463a;--green2:#1f5b49;--orange:#c58b45;--cream:#f4ede0;--ink:#17231e;--muted:#68756e}
@@ -227,6 +227,39 @@ html{scroll-padding-top:92px}section{scroll-margin-top:0}
 @media(max-width:480px){.intro-logo{width:min(290px,84vw);padding:22px 20px 18px}.intro-logo .badge{width:170px;height:170px}}
 /* floating contact button hides while the contact section is on screen */
 .cw,.to-top{transition:opacity .3s,visibility 0s}.cw.away,.to-top.away{opacity:0;visibility:hidden;pointer-events:none}
+
+/* Arabic-script text must not be letter-spaced (it breaks the joined letters) */
+:root[dir=rtl] :where(h1,h2,h3,p,a,b,span,small,button,label,summary,em,strong,li){letter-spacing:0}
+:root[dir=rtl] h1{letter-spacing:0;line-height:1.05}
+:root[dir=rtl] .logo-text,:root[dir=rtl] .logo-text span{letter-spacing:3.4px}
+:root[dir=rtl] .tb-right{letter-spacing:3px}
+:root[dir=rtl] .brand{letter-spacing:3px}
+
+/* ===== brands marquee: seamless loop (margin instead of gap) + Safari-safe fades ===== */
+.marquee{-webkit-mask-image:none;mask-image:none;position:relative}
+.marquee:before,.marquee:after{content:"";position:absolute;top:0;bottom:0;width:min(120px,14vw);z-index:2;pointer-events:none}
+.marquee:before{left:0;background:linear-gradient(90deg,#fff,#fff0)}.marquee:after{right:0;background:linear-gradient(270deg,#fff,#fff0)}
+.track{gap:0;will-change:transform;-webkit-backface-visibility:hidden;backface-visibility:hidden;transform:translate3d(0,0,0)}
+.brand{margin-right:18px;flex:none}
+@keyframes marq{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@media(prefers-reduced-motion:reduce){.marquee:before,.marquee:after{display:none}.brand{margin:0}.track{gap:14px}}
+/* ===== iPhone / Safari fixes ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+button,select,input{-webkit-appearance:none;appearance:none;border-radius:inherit}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2317463a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px!important}
+:root[dir=rtl] select{background-position:left 14px center;padding-right:16px!important;padding-left:36px!important}
+.prod,.reel,.svc-grid,.prod-img,.yt,.contact-card,.feature,.cut-out,.cw-panel{isolation:isolate}
+.to-top{bottom:calc(22px + env(safe-area-inset-bottom,0px));right:calc(22px + env(safe-area-inset-right,0px))}
+.cw{bottom:calc(22px + env(safe-area-inset-bottom,0px));inset-inline-start:calc(22px + env(safe-area-inset-left,0px))}
+header{padding-left:max(4%,env(safe-area-inset-left,0px));padding-right:max(4%,env(safe-area-inset-right,0px))}
+html.menu-open,body.menu-open{overflow:hidden;overscroll-behavior:none}
+#nav{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}.scrim{touch-action:none}
+@media(max-width:760px){
+ /* 16px inputs: stops iOS Safari from zooming the page when a field is tapped */
+ input,select,textarea,#lang{font-size:16px!important}
+ .to-top{bottom:calc(14px + env(safe-area-inset-bottom,0px));right:calc(14px + env(safe-area-inset-right,0px))}
+ .cw{bottom:calc(14px + env(safe-area-inset-bottom,0px));inset-inline-start:calc(14px + env(safe-area-inset-left,0px))}
+}
 </style>
 </head>
 <body>
@@ -309,7 +342,7 @@ function setLanguage(lang){
 }
 document.getElementById('lang').addEventListener('change',e=>{setLanguage(e.target.value);if(lastParts.length)calculate()});
 const navEl=document.getElementById('nav'),menuBtn=document.getElementById('menuBtn');
-function setMenu(open){navEl.classList.toggle('open',open);menuBtn.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',open);document.getElementById('scrim').classList.toggle('show',open);document.body.classList.toggle('menu-open',open)}
+function setMenu(open){navEl.classList.toggle('open',open);menuBtn.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',open);document.getElementById('scrim').classList.toggle('show',open);document.body.classList.toggle('menu-open',open);document.documentElement.classList.toggle('menu-open',open)}
 document.getElementById('scrim').addEventListener('click',()=>setMenu(false));document.getElementById('drawerClose').addEventListener('click',()=>setMenu(false));
 menuBtn.addEventListener('click',e=>{e.stopPropagation();setMenu(!navEl.classList.contains('open'))});
 document.querySelectorAll('#nav a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
